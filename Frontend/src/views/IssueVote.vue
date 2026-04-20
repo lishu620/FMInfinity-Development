@@ -1,6 +1,6 @@
 <template>
-  <div class="vote-page">
-    <h2>稿件投票</h2>
+  <div class="page-container">
+    <h1 class="page-title">稿件投票</h1>
     <p class="tip">文案组可投 1 票，其他成员可投 1~3 票</p>
 
     <div class="issue-list">
@@ -268,23 +268,20 @@ onMounted(() => loadVotingIssues());
 </script>
 
 <style scoped>
-.vote-page {
-  max-width: 80%;
-  margin: 30px auto;
-  padding: 0 20px;
-}
-
 .issue-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
 .issue-card {
-  background: #f8f9fa;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   padding: 20px;
   cursor: pointer;
-  border: 1px solid #eee;
+  transition: background 0.2s;
 }
 .issue-card:hover {
   background: #e6f7ff;
@@ -312,7 +309,10 @@ onMounted(() => loadVotingIssues());
   color: #999;
 }
 .song-vote-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;

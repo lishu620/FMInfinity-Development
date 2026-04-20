@@ -1,5 +1,5 @@
 <template>
-  <div class="issue-list-container">
+  <div class="page-container">
     <div class="issue-list-box">
       <div class="header-row">
         <h1 class="page-title">稿件管理</h1>
@@ -163,7 +163,7 @@ const deleteIssue = async (issueId, title) => {
 
     await api.delete(`/issue/${issueId}`);
     ElMessage.success("稿件已删除");
-    fetchIssues(); // 刷新列表
+    fetchIssues();
   } catch (err) {
     console.error("删除稿件失败:", err);
     ElMessage.error("删除失败：" + (err.response?.data?.message || "未知错误"));
@@ -179,6 +179,10 @@ onMounted(() => {
 .issue-card {
   border-radius: 12px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .card-header {

@@ -88,7 +88,11 @@ const scrollToFeatures = () => {
 .hero {
   text-align: center;
   padding: 80px 20px;
-  background-color: white;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  margin: 20px;
 }
 .hero-title {
   font-size: 48px;
@@ -122,8 +126,11 @@ const scrollToFeatures = () => {
 .feature-card {
   padding: 30px;
   border-radius: 8px;
-  background-color: white;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 .feature-icon {

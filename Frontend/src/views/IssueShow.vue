@@ -1,6 +1,6 @@
 <template>
-  <div class="issue-show-page">
-    <h2>稿件查看 / 文案信息展示</h2>
+  <div class="page-container">
+    <h1 class="page-title">稿件查看</h1>
     <p class="tip">所有登录用户均可查看文案信息</p>
 
     <div class="issue-list">
@@ -254,13 +254,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* 你的原有样式 100% 不变 */
-.issue-show-page {
-  max-width: 80%;
-  margin: 30px auto;
-  padding: 0 20px;
-}
-
 .issue-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

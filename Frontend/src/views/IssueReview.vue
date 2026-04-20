@@ -1,6 +1,6 @@
 <template>
-  <div class="review-page">
-    <h2>稿件查看 / 文案编辑</h2>
+  <div class="page-container">
+    <h1 class="page-title">稿件查看 / 文案编辑</h1>
     <p class="tip">超管可统筹分配，文案组可认领并填写文案</p>
 
     <div class="issue-list">
@@ -415,12 +415,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.review-page {
-  max-width: 80%;
-  margin: 30px auto;
-  padding: 0 20px;
-}
-
 .issue-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
