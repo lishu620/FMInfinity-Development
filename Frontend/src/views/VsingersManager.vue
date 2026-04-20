@@ -125,7 +125,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import api from "@/store/auth";
+import { useAuthStore } from "@/store/auth";
 import { ElMessage, ElMessageBox } from "element-plus";
+
+const authStore = useAuthStore();
 
 // 列表
 const vsingerList = ref([]);
