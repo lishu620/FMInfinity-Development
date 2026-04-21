@@ -1,6 +1,6 @@
 <template>
-  <div class="vsingers-show">
-    <h1 class="title">歌姬列表</h1>
+  <div class="page-container">
+    <h1 class="page-title">歌姬列表</h1>
 
     <!-- 歌姬列表（公共查询，只读） -->
     <div class="section">
@@ -97,16 +97,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.vsingers-show {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-.title {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 24px;
-}
+
 .section {
   margin-bottom: 40px;
 }

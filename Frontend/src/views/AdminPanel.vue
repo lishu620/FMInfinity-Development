@@ -1,6 +1,6 @@
 <template>
-  <div class="admin-panel">
-    <h1 class="title">用户管理</h1>
+  <div class="page-container">
+    <h1 class="page-title">用户管理</h1>
 
     <!-- 待审核用户 -->
     <div class="section">
@@ -278,16 +278,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.admin-panel {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-.title {
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 24px;
-}
 .section {
   margin-bottom: 40px;
 }

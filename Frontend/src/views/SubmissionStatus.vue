@@ -1,6 +1,6 @@
 <template>
-  <div class="issue-list-page">
-    <h2>所有稿件列表</h2>
+  <div class="page-container">
+    <h1 class="page-title">所有稿件列表</h1>
     <p class="tip">当前所有稿件及当前流程进度</p>
 
     <div class="issue-list">
@@ -98,11 +98,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.issue-list-page {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 0 20px;
-}
 
 .issue-list {
   display: flex;
