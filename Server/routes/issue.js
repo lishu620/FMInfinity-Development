@@ -13,6 +13,7 @@ const {
   User,
   Vote,
   Copy,
+  Vsinger,
 } = require("../models");
 
 // 获取所有稿件
@@ -129,7 +130,6 @@ router.post(
 router.get("/issue/:id/songs", authMiddleware, async (req, res) => {
   try {
     const issueId = req.params.id;
-    const { Vsinger } = require("../models");
 
     const songs = await PublicSong.findAll({
       where: { issueId },

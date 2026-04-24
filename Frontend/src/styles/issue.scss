@@ -1,0 +1,214 @@
+@use "./public.scss" as *;
+
+@mixin list {
+  .issue-card {
+    @extend .acrylic;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 8px;
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .card-status {
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .create-btn-box {
+    margin-top: 30px;
+  }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+}
+
+@mixin detail {
+  .issue-detail-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .issue-detail-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  }
+
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .page-title-detailed {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .status-select {
+    width: 140px;
+  }
+
+  .header-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .mt-4 {
+    margin-top: 16px;
+  }
+  .mt-8 {
+    margin-top: 32px;
+  }
+}
+
+@mixin vote {
+  .issue-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .issue-card {
+    @extend .acrylic;
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .issue-card:hover {
+    background: #e6f7ff;
+  }
+  .title {
+    font-weight: bold;
+  }
+  .status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    background: #00c48c;
+    color: #fff;
+    margin: 6px 0;
+    display: inline-block;
+  }
+  .desc {
+    color: #999;
+    font-size: 13px;
+  }
+  .empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 40px;
+    color: #999;
+  }
+  .song-vote-card {
+    @extend .acrylic;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+  .card-body {
+    display: flex;
+    gap: 24px;
+  }
+  .info-side {
+    flex: 1;
+  }
+  .votes-badge {
+    background: #9f7aea;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+  .song-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .submitter,
+  .recommender {
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .my-score-tag {
+    color: #00c48c;
+    font-weight: bold;
+    margin-left: 4px;
+  }
+  .vote-rate-row {
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .voted-tip {
+    color: #00c48c;
+    font-weight: bold;
+    margin: 16px 0;
+  }
+
+  .vote-btn-row {
+    margin-top: 10px;
+  }
+
+  .player-side {
+    width: 650px;
+  }
+
+  .player-container {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .no-player {
+    padding: 60px;
+    text-align: center;
+    color: #999;
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+}

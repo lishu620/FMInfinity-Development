@@ -175,51 +175,7 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.issue-card {
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-/* 按钮并排、间距统一 */
-.button-group {
-  display: flex;
-  gap: 8px;
-}
-
-.card-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.card-status {
-  font-size: 14px;
-  color: #666;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.create-btn-box {
-  margin-top: 30px;
-}
-
-.header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
+<style scoped lang="scss">
+@use "../styles/issue.scss" as issue;
+@include issue.list;
 </style>

@@ -97,7 +97,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .section {
   margin-bottom: 40px;
 }

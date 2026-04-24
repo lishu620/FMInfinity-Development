@@ -145,5 +145,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@import "../styles/login.css";
+@use "../styles/login.scss" as *;
 </style>

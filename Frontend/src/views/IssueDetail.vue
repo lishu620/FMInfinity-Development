@@ -59,9 +59,19 @@
 
       <el-divider />
 
-      <!-- 歌曲列表组件 -->
+      <!-- 歌曲列表 - 天文台导入 -->
       <MusicList
-        :songs="songs"
+        title="天文台导入"
+        :songs="normalSongs"
+        :is-admin-or-issue-admin="isAdminOrIssueAdmin"
+        @edit-song="openEditSong"
+        @delete-song="deleteSong"
+      />
+
+      <!-- 歌曲列表 - 内部推荐 -->
+      <MusicList
+        title="内部推荐"
+        :songs="internalSongs"
         :is-admin-or-issue-admin="isAdminOrIssueAdmin"
         @edit-song="openEditSong"
         @delete-song="deleteSong"
@@ -105,8 +115,25 @@
         </el-table>
       </div>
 
-      <!-- 文案组音乐模块 -->
-      <MusicSelect :issue-id="issueId" :songs="songs" @refresh="fetchSongs" />
+      <!-- 文案选歌 - 天文台 -->
+      <div class="mt-8">
+        <h2 class="section-title">文案选歌 - 天文台导入</h2>
+        <MusicSelect
+          :issue-id="issueId"
+          :songs="normalSongs"
+          @refresh="fetchSongs"
+        />
+      </div>
+
+      <!-- 文案选歌 - 内部推荐 -->
+      <div class="mt-8">
+        <h2 class="section-title">文案选歌 - 内部推荐</h2>
+        <MusicSelect
+          :issue-id="issueId"
+          :songs="internalSongs"
+          @refresh="fetchSongs"
+        />
+      </div>
     </div>
   </div>
 
@@ -156,6 +183,12 @@
       <el-form-item label="提交者">
         <el-input v-model="addForm.submitter" />
       </el-form-item>
+      <el-form-item label="歌单类型">
+        <el-select v-model="addForm.isInternalReferraled">
+          <el-option :value="false" label="天文台导入" />
+          <el-option :value="true" label="内部推荐" />
+        </el-select>
+      </el-form-item>
     </el-form>
     <template #footer>
       <el-button @click="addDialogVisible = false">取消</el-button>
@@ -171,6 +204,12 @@
       </el-form-item>
       <el-form-item label="提交者">
         <el-input v-model="editForm.submitter" />
+      </el-form-item>
+      <el-form-item label="歌单类型">
+        <el-select v-model="editForm.isInternalReferraled">
+          <el-option :value="false" label="天文台导入" />
+          <el-option :value="true" label="内部推荐" />
+        </el-select>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -196,9 +235,19 @@ const authStore = useAuthStore();
 const issueId = route.params.id;
 
 const issue = ref({});
-const songs = ref([]);
 const admins = ref([]);
 const allUsers = ref([]);
+
+// 歌曲分组（和后端 isInternalReferraled 完全对应）
+const normalSongs = ref([]); // 天文台导入
+const internalSongs = ref([]); // 内部推荐
+
+// 统一加载歌曲 + 自动分组（完全匹配你的 /issue/:id/songs）
+const fetchSongs = async () => {
+  const { data } = await api.get(`/issue/${issueId}/songs`);
+  normalSongs.value = data.filter((s) => !s.isInternalReferraled);
+  internalSongs.value = data.filter((s) => s.isInternalReferraled);
+};
 
 // 弹窗
 const adminDialogVisible = ref(false);
@@ -207,75 +256,30 @@ const addDialogVisible = ref(false);
 const editDialogVisible = ref(false);
 const selectedAdminId = ref(null);
 const importText = ref("");
-const addForm = ref({ name: "", submitter: "" });
+
+// 添加 / 编辑表单（完全对齐后端字段）
+const addForm = ref({
+  name: "",
+  submitter: "",
+  isInternalReferraled: false,
+});
 const editForm = ref({});
 
-// 返回上一级
+// 返回
 const goBack = () => {
   router.go(-1);
 };
 
-// 权限：超管 或 本期管理员
+// 权限判断（和你的 isIssueAdmin 中间件一致）
 const isAdminOrIssueAdmin = computed(() => {
   if (authStore.isSuperAdmin) return true;
   return admins.value.some((a) => a.id === authStore.user.id);
 });
 
-// 状态
-const statusText = computed(() => {
-  const map = {
-    draft: "草稿",
-    submitting: "提交中",
-    voting: "投票中",
-    confirmed: "已确认",
-    published: "已发布",
-  };
-  return map[issue.value.status] || issue.value.status;
-});
-
-const tagType = computed(() => {
-  const map = {
-    draft: "info",
-    submitting: "primary",
-    voting: "warning",
-    confirmed: "success",
-    published: "success",
-  };
-  return map[issue.value.status] || "info";
-});
-
-const updateSelectedCountAndFinalize = async () => {
-  try {
-    if (!issue.value.selectedCount) {
-      return ElMessage.warning("请先选择本期选择数量");
-    }
-
-    await api.put(`/issue/${issueId}/selected-count`, {
-      count: issue.value.selectedCount,
-    });
-
-    await api.post(`/issue/${issueId}/finalize-songs`);
-
-    await Promise.all([fetchDetail(), fetchSongs()]);
-
-    ElMessage.success(
-      `已更新本期选择 ${issue.value.selectedCount} 首，并同步到文案编写`,
-    );
-  } catch (err) {
-    console.error(err);
-    ElMessage.error(err?.response?.data?.message || "更新失败");
-  }
-};
-
 // 加载数据
 const fetchDetail = async () => {
   const { data } = await api.get(`/issue/${issueId}`);
   issue.value = data;
-};
-
-const fetchSongs = async () => {
-  const { data } = await api.get(`/issue/${issueId}/songs`);
-  songs.value = data;
 };
 
 const fetchAdmins = async () => {
@@ -301,7 +305,7 @@ const updateStatus = async () => {
   }
 };
 
-// 编辑歌曲
+// 编辑歌曲（已带上 isInternalReferraled）
 const openEditSong = (row) => {
   editForm.value = { ...row };
   editDialogVisible.value = true;
@@ -312,13 +316,14 @@ const editSong = async () => {
   await api.put(`/issue/${issueId}/song/${editForm.value.id}`, {
     name: editForm.value.name,
     submitter: editForm.value.submitter,
+    isInternalReferraled: editForm.value.isInternalReferraled,
   });
   ElMessage.success("修改成功");
   fetchSongs();
   editDialogVisible.value = false;
 };
 
-// 1. 指定管理员
+// 管理员功能
 const openAssignAdmin = () => {
   adminDialogVisible.value = true;
   fetchAllUsers();
@@ -332,7 +337,6 @@ const assignAdmin = async () => {
   adminDialogVisible.value = false;
 };
 
-// 2. 移除管理员
 const removeAdmin = async (userId) => {
   await ElMessageBox.confirm("确定移除该管理员？");
   await api.delete(`/issue/${issueId}/admin/${userId}`);
@@ -340,7 +344,7 @@ const removeAdmin = async (userId) => {
   fetchAdmins();
 };
 
-// 3. 导入歌单
+// 导入歌单（默认导入到天文台）
 const openImportSongs = () => {
   importDialogVisible.value = true;
 };
@@ -353,24 +357,26 @@ const importSongs = async () => {
     .split("\n")
     .map((l) => l.trim())
     .filter(Boolean);
-
   const songList = [];
 
   for (const line of lines) {
     const reg = /^(\d+)\.\s*(\S.+?)\s+(\S.+)$/;
     const match = line.match(reg);
-
     if (match) {
-      const submitter = match[2].trim();
-      const name = match[3].trim();
-      songList.push({ name, submitter });
+      songList.push({
+        name: match[3].trim(),
+        submitter: match[2].trim(),
+      });
     } else {
       songList.push({ name: line.trim(), submitter: "" });
     }
   }
 
   try {
-    await api.post(`/issue/${issueId}/import-songs`, { songs: songList });
+    await api.post(`/issue/${issueId}/import-songs`, {
+      songs: songList,
+      isInternalReferraled: false,
+    });
     ElMessage.success(`导入成功：${songList.length} 首`);
     fetchSongs();
     importDialogVisible.value = false;
@@ -381,10 +387,10 @@ const importSongs = async () => {
   }
 };
 
-// 4. 添加单首歌曲
+// 添加歌曲（完整对齐后端）
 const openAddSong = () => {
+  addForm.value = { name: "", submitter: "", isInternalReferraled: false };
   addDialogVisible.value = true;
-  addForm.value = { name: "", submitter: "" };
 };
 
 const addSong = async () => {
@@ -398,29 +404,40 @@ const addSong = async () => {
   addDialogVisible.value = false;
 };
 
-// 6. 删除歌曲
+// 删除歌曲
 const deleteSong = async (songId) => {
   await ElMessageBox.confirm("确定删除该歌曲？");
   await api.delete(`/issue/${issueId}/song/${songId}`);
   fetchSongs();
 };
 
-onMounted(async () => {
-  await fetchDetail();
-  await fetchSongs();
-  await fetchAdmins();
-});
-
+// 选歌数量 & 最终确定
 const updateSelectedCount = async () => {
   try {
     await api.put(`/issue/${issueId}/selected-count`, {
       count: issue.value.selectedCount,
     });
-
     ElMessage.success("设置成功");
   } catch (err) {
     ElMessage.error("设置失败");
     fetchDetail();
+  }
+};
+
+const updateSelectedCountAndFinalize = async () => {
+  try {
+    if (!issue.value.selectedCount) {
+      return ElMessage.warning("请先选择本期选择数量");
+    }
+    await api.put(`/issue/${issueId}/selected-count`, {
+      count: issue.value.selectedCount,
+    });
+    await api.post(`/issue/${issueId}/finalize-songs`);
+    await Promise.all([fetchDetail(), fetchSongs()]);
+    ElMessage.success("已更新选择数量并同步文案");
+  } catch (err) {
+    console.error(err);
+    ElMessage.error(err?.response?.data?.message || "更新失败");
   }
 };
 
@@ -433,61 +450,15 @@ const finalizeSongs = async () => {
     ElMessage.error("自动选歌失败");
   }
 };
+
+onMounted(async () => {
+  await fetchDetail();
+  await fetchSongs();
+  await fetchAdmins();
+});
 </script>
 
-<style scoped>
-.issue-detail-container {
-  max-width: 1400px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.issue-detail-box {
-  background: #fff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-}
-
-.detail-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.page-title-detailed {
-  font-size: 26px;
-  font-weight: bold;
-  margin: 0;
-}
-
-.status-select {
-  width: 140px;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 12px;
-}
-
-.mt-4 {
-  margin-top: 16px;
-}
-.mt-8 {
-  margin-top: 32px;
-}
+<style scoped lang="scss">
+@use "../styles/issue.scss" as issue;
+@include issue.detail;
 </style>

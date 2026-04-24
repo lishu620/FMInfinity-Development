@@ -72,6 +72,8 @@ const PublicSong = sequelize.define("PublicSong", {
 
   SelectedUser: { type: DataTypes.INTEGER }, // 文案组选歌时的选择人
   isAdminInsert: { type: DataTypes.BOOLEAN, defaultValue: false }, // 是否管理员直接插入
+
+  isInternalReferraled: {type: DataTypes.BOOLEAN, defaultValue: false}, // 是否为内部推荐
 });
 
 // 6. 投票表

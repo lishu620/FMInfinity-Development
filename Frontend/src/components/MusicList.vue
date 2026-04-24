@@ -2,7 +2,7 @@
   <!-- 歌曲列表组件 -->
   <div class="mb-6">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="section-title">歌曲列表</h2>
+      <h2 class="section-title">{{ title }}</h2>
     </div>
 
     <el-table :data="songs" border stripe>
@@ -55,6 +55,10 @@
 
 <script setup>
 defineProps({
+  title: {
+    type: String,
+    default: "歌曲列表",
+  },
   songs: {
     type: Array,
     default: () => [],
@@ -68,10 +72,4 @@ defineProps({
 const emit = defineEmits(["edit-song", "delete-song"]);
 </script>
 
-<style scoped>
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-</style>
+<style scoped></style>
