@@ -1,7 +1,7 @@
 <template>
-  <div class="register-container">
-    <div class="register-box">
-      <h2 class="register-title">用户注册</h2>
+  <div class="login-container">
+    <div class="login-box">
+      <h2 class="login-title">用户注册</h2>
 
       <el-form
         @submit.prevent="handleRegister"
@@ -63,7 +63,7 @@
             native-type="submit"
             :loading="loading"
             size="large"
-            class="register-btn"
+            class="login-btn"
           >
             {{ loading ? "注册中..." : "注册" }}
           </el-button>
@@ -145,45 +145,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* 你的样式保持不变 */
-.register-container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f7fa;
-}
-.register-box {
-  width: 100%;
-  max-width: 420px;
-  padding: 40px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-}
-.register-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-.error-tip {
-  color: #f56c6c;
-  font-size: 12px;
-  text-align: center;
-  margin-bottom: 10px;
-}
-.register-btn {
-  width: 100%;
-}
-.login-link {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 10px;
-  color: #666;
-}
-.login-link a {
-  color: #409eff;
-  cursor: pointer;
-}
+@import "../styles/login.css";
 </style>

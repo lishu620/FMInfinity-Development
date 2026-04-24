@@ -98,7 +98,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .issue-list {
   display: flex;
   flex-direction: column;

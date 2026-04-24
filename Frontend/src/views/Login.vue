@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <h2 class="login-title">登录系统</h2>
+      <h2 class="login-title">登录到FMInfinity</h2>
 
       <el-form @submit.prevent="handleLogin" class="login-form">
         <el-form-item>
@@ -72,52 +72,5 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
-.login-container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f7fa;
-}
-
-.login-box {
-  width: 100%;
-  max-width: 420px;
-  padding: 40px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-}
-
-.login-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-
-.login-form {
-  width: 100%;
-}
-
-.error-tip {
-  color: #f56c6c;
-  font-size: 12px;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.login-btn {
-  width: 100%;
-}
-
-.login-link {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 10px;
-}
-a {
-  color: #409eff;
-  cursor: pointer;
-}
+@import "../styles/login.css";
 </style>
