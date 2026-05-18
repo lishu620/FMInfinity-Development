@@ -1,7 +1,7 @@
 {
-  "name": "music-vote-frontend",
+  "name": "FMInfinity",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.2.3",
   "type": "module",
   "scripts": {
     "dev": "vite",

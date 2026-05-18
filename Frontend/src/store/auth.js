@@ -2,10 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 const api = axios.create({
-  // 开发模式需要配置代理后端到端口3000
-  baseURL: "http://localhost:3000/api",
-  // 部署模式使用下面的配置
-  // baseURL: "/api",
+  baseURL: "/api",
   headers: {
     "Content-Type": "application/json",
   },
