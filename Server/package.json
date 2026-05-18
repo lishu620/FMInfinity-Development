@@ -1,6 +1,6 @@
 {
-  "name": "music-vote-backend",
-  "version": "1.0.0",
+  "name": "FMInfinity-Server",
+  "version": "1.6.1",
   "description": "",
   "main": "index.js",
   "scripts": {

@@ -23,6 +23,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api", require("./routes/issue"));
 app.use("/api", require("./routes/vote"));
 app.use("/api", require("./routes/vsingers"));
+app.use("/api/notice", require("./routes/notice"))
 
 // SPA fallback
 app.use((req, res, next) => {

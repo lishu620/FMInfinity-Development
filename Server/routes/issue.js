@@ -298,6 +298,7 @@ router.put(
     try {
       const { id } = req.params;
       const { status } = req.body;
+      const sendUid = req.user.id;
 
       const validStatuses = [
         "draft",
@@ -306,17 +307,24 @@ router.put(
         "confirmed",
         "published",
       ];
+
       if (!validStatuses.includes(status)) {
         return res.status(400).json({ message: "无效状态" });
       }
 
       await Issue.update({ status }, { where: { id } });
-      res.json({ message: "状态更新成功" });
+      const issue = await Issue.findByPk(id);
+
+      // ✅ 安全调用
+      const { sendIssueStatusNotice } = require('../utils/noticeSend');
+      await sendIssueStatusNotice(issue, status, sendUid);
+
+      res.json({ message: "状态更新成功，已通知文案组" });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "更新失败" });
     }
-  },
+  }
 );
 
 // 编辑歌曲
