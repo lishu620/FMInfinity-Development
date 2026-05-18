@@ -1,15 +1,11 @@
 <template>
-  <!-- 只保留内容，Menu 已经在 App.vue 全局加载了 -->
   <div class="home-page">
-    <!-- 英雄区 -->
     <div class="hero">
       <h1 class="hero-title">
-        <span class="gradient-text">一站式</span>
-        <br />音乐推荐投票系统
+        <span class="gradient-text">FMInfinity</span>
+        <br />共鸣电台聚合一站式服务平台
       </h1>
-      <p class="hero-desc">
-        易上手、高灵活、全流程的音乐推荐、投票、文案编辑与展示平台
-      </p>
+      <p class="hero-desc">易上手、高灵活、全流程的一站式综合平台</p>
       <div class="hero-buttons">
         <el-button type="primary" size="large" @click="goIssues">
           快速开始
@@ -18,7 +14,7 @@
       </div>
     </div>
 
-    <!-- 功能特性区 -->
+    <!-- 卡片模块 -->
     <div id="features" class="features">
       <div class="feature-card">
         <el-icon class="feature-icon" :size="48" color="#409EFF">
@@ -31,9 +27,9 @@
             ></path>
           </svg>
         </el-icon>
-        <h3 class="feature-title">便捷投票流程</h3>
+        <h3 class="feature-title">每次稿件</h3>
         <p class="feature-desc">
-          公共提交、文案组筛选、用户投票、管理员确认，全流程可视化，支持0-3票灵活打分
+          公共提交、文案组筛选、用户投票、管理员确认，全流程可视化
         </p>
       </div>
 
@@ -48,10 +44,8 @@
             ></path>
           </svg>
         </el-icon>
-        <h3 class="feature-title">专业文案编辑</h3>
-        <p class="feature-desc">
-          专属文案组编辑权限，一键分配文案任务，支持在线编辑、实时预览，自动生成PDF推荐文案
-        </p>
+        <h3 class="feature-title">每日文案</h3>
+        <p class="feature-desc">用户可自由提交每日文案</p>
       </div>
 
       <div class="feature-card">
@@ -65,10 +59,8 @@
             ></path>
           </svg>
         </el-icon>
-        <h3 class="feature-title">灵活权限管理</h3>
-        <p class="feature-desc">
-          超级管理员、组管理员、普通用户三级权限，支持自定义用户组，密码一键重置，安全可控
-        </p>
+        <h3 class="feature-title">安全可控</h3>
+        <p class="feature-desc">平台采用多安全认证机制，确保用户数据安全</p>
       </div>
     </div>
   </div>
