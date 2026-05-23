@@ -12,6 +12,8 @@ import GroupPanel from "@/views/GroupManagement.vue";
 import SubmissionStatus from "../views/SubmissionStatus.vue";
 import VsingersManager from "../views/VsingersManager.vue";
 import VsingerShow from "../views/VsingerShow.vue";
+import UpdatesView from "../views/UpdatesView.vue";
+import { pa } from "element-plus/es/locale/index.mjs";
 
 const routes = [
   { path: "/", component: Home },
@@ -67,6 +69,11 @@ const routes = [
     path: "/show",
     name: "Show",
     component: () => import("@/views/IssueShow.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/update",
+    component: UpdatesView,
     meta: { requiresAuth: true },
   },
 ];
